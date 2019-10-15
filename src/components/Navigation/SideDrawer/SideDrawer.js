@@ -9,7 +9,6 @@ import Aux from '../../../hoc/Aux/Aux';
 const sideDrawer = (props) => { 
     let attatchedClasses = [classes.SideDrawer, classes.Close];
 
-    console.log(attatchedClasses)
 
     if( props.open ){
         attatchedClasses = [classes.SideDrawer, classes.Open];
@@ -19,7 +18,7 @@ const sideDrawer = (props) => {
     return (
         <Aux>
          <Backdrop show={props.open} clicked={props.closed}/> 
-        <div className={attatchedClasses.join(' ')}>
+        <div className={attatchedClasses.join(' ')} onClick={props.closed}>
             <Logo height="11%"/>
             <nav>
                 <NavigationItems isAuthenticated={props.isAuth}/>

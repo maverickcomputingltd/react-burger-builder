@@ -7,6 +7,7 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Input from '../../components/UI/Input/Input';
 import input from '../../components/UI/Input/Input';
+import { updateObject, checkValidity } from '../../shared/utility';
 
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../store/actions/index';
@@ -104,17 +105,16 @@ class ContactData extends Component{
 
     inputChangedHandler = (event, inputIdentifier) => {
 
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        }
-        const updatedFormElement = {
-            ...updatedOrderForm[inputIdentifier]
-        }
+        const updatedFormElement = updateObject(this.state.orderForm[inputIdentifier], {
+            value: event.target.value,
+            valid: checkValidity(event.target.value, this.state.orderForm[inputIdentifier].validation),
+            touched: true
+        });
+
+        const updatedOrderForm = updateObject(this.state.orderForm, {
+            [inputIdentifier]: updatedFormElement
+        });
         
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.touched = true;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation); 
-        updatedOrderForm[inputIdentifier] = updatedFormElement;
         console.log(updatedFormElement);
 
         let formIsValid = true;
@@ -126,28 +126,6 @@ class ContactData extends Component{
         this.setState({orderForm: updatedOrderForm, formIsValid: formIsValid});
         
         console.log(updatedOrderForm);
-    }
-
-    checkValidity(value, rules){
-        
-        let isValid = true;
-
-        if(!rules) return true;
-
-        if(rules.required){
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if(rules.minLength){
-            isValid = value.length >= rules.minLength && isValid;
-        }
-
-        if(rules.maxLength){
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-
-        return isValid;
-
     }
 
     orderHandler = (event) => {
@@ -164,7 +142,8 @@ class ContactData extends Component{
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
-            orderData: formData
+            orderData: formData,
+            userId: this.props.userId
         };
 
         this.props.onOrderBurger(order, this.props.token);
@@ -221,7 +200,8 @@ const mapStateToProps = state => {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         loading: state.order.loading,
-        token: state.auth.token
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 };
 

@@ -12,6 +12,7 @@ import authReducer from './store/reducers/auth';
 import thunk from 'redux-thunk';
 import order from './components/Order/Order';
 
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
