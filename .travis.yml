@@ -5,6 +5,7 @@ warnings_are_errors: false
 install:
   - npm install
 script:
+  - node scripts/test.js --watchAll
   - npm run build
 deploy:
   provider: firebase
