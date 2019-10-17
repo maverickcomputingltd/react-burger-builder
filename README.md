@@ -1,3 +1,5 @@
+https://travis-ci.org/maverickcomputingltd/react-burger-builder.svg?branch=master
+
 # Burger Builder React Web App 
 
 ## This project is a "Burger Builder" app for culinary e-commerce purposes. The code is from a tutorial by Max Schwarzermüller from Acade mind. 
