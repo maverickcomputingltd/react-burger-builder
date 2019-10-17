@@ -1,4 +1,4 @@
-https://travis-ci.org/maverickcomputingltd/react-burger-builder.svg?branch=master
+[![Build Status](https://travis-ci.org/maverickcomputingltd/react-burger-builder.svg?branch=master)](https://travis-ci.org/maverickcomputingltd/react-burger-builder)
 
 # Burger Builder React Web App 
 
